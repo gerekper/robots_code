@@ -1,4 +1,17 @@
-<?php namespace Devnull\Robots\Classes;
+<?php namespace Devnull\Robots\Updates;
+
+use DB;
+use Devnull\Main\Classes\InstallMain;
+use Devnull\Robots\Classes\Seeding;
+use Devnull\Robots\Models\Robot;
+use Devnull\Robots\Models\RobotDirective;
+use Devnull\Robots\Models\RobotAgent;
+use Devnull\Robots\Models\RobotLog;
+use Devnull\Robots\Models\Human;
+use Devnull\Robots\Models\HumanConfig;
+use Devnull\Robots\Models\HumanInfo;
+use Devnull\Robots\Models\HumanLog;
+use Illuminate\Database\Seeder;
 
 /**                _                             _
 __ _  ___ _ __ ___| | ___ __   ___ _ __ __ _ ___(_) __ _
@@ -10,7 +23,7 @@ __ _  ___ _ __ ___| | ___ __   ___ _ __ __ _ ___(_) __ _
  * This is a gerekper.main[robots] for OctoberCMS
  *
  * @category   Gerekper+ Addons | Toolbox Plugin File
- * @package    Devnull.robots.classes.humans | Octobercms
+ * @package    Devnull.robots.updates.seedalltable | Octobercms
  * @author     devnull <www.gerekper.asia>
  * @copyright  2012-2019 Gerekper Inc
  * @license    http://www.gerekper.asia/license/modules.txt
@@ -21,14 +34,32 @@ __ _  ___ _ __ ___| | ___ __   ___ _ __ __ _ ___(_) __ _
  * @deprecated -
  */
 
-class Humans
+class SeedAllTable extends Seeder
 {
-
-	//----------------------------------------------------------------------//
+    //----------------------------------------------------------------------//
     //	Constant Functions - Start
     //----------------------------------------------------------------------//
 
-    protected $lines = Array();
+    function __construct()
+    {
+        $this->_schema              =   [];
+        $this->installations        =   new InstallMain();
+        $this->seeding              =   new Seeding();
+        $this->_main_code           =   'devnull_robot_settings';
+
+        $this->_robots_robot        =   Robot::$_table;
+        $this->_robots_directive    =   RobotDirective::$_table;
+        $this->_robots_agent        =   RobotAgent::$_table;
+        $this->_robots_log          =   RobotLog::$_table;
+
+        $this->_robot_human         =   Human::$_table;
+        $this->_robot_human_config  =   HumanConfig::$_table;
+        $this->_robot_human_info    =   HumanInfo::$_table;
+        $this->_robot_human_log     =   HumanLog::$_table;
+
+        $this->_db_variables        =   SystemSettings::get_config_default();
+
+    }
 
     //----------------------------------------------------------------------//
     //	Constant Functions - End
@@ -42,54 +73,11 @@ class Humans
     //	Construct Functions - End
     //----------------------------------------------------------------------//
 
-	public function generate()
-	{
-		return implode(PHP_EOL, $this->lines);
-	}
-
     //----------------------------------------------------------------------//
     //	Main Functions - Start
     //----------------------------------------------------------------------//
-
-	public function addHeader($_header)
-	{
-		$this->addLine("/* $_header /*");
-	}
-
-	public function addSuperman($_value, $_title)
-	{
-		$this->addLine("$_title: $_value");
-	}
-
-	public function addTechnology($_value, $_url)
-	{
-		$this->addLine("$_value [$_url]");
-	}
-
-	protected function addLine($line)
-	{
-		$this->lines[] = (string) $line;
-	}
-
-	public function addSpacer()
-	{
-		self::addLine("");
-	}
-
-	public function addComment($comment)
-	{
-		self::addLine("$comment");
-	}
-
-	public function reset()
-	{
-		$this->lines = array();
-	}
 
     //----------------------------------------------------------------------//
     //	Main Functions - End
     //----------------------------------------------------------------------//
 }
-
-
-

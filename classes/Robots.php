@@ -1,6 +1,27 @@
-<?php namespace Devnull\Main\Classes;
+<?php namespace Devnull\Robots\Classes;
 
 use DB;
+
+/**                _                             _
+__ _  ___ _ __ ___| | ___ __   ___ _ __ __ _ ___(_) __ _
+/ _` |/ _ \ '__/ _ \ |/ / '_ \ / _ \ '__/ _` / __| |/ _` |
+| (_| |  __/ | |  __/   <| |_) |  __/ | | (_| \__ \ | (_| |
+\__, |\___|_|  \___|_|\_\ .__/ \___|_|(_)__,_|___/_|\__,_|
+|___/                   |_|
+
+ * This is a gerekper.main[robots] for OctoberCMS
+ *
+ * @category   Gerekper+ Addons | Toolbox Plugin File
+ * @package    Devnull.robots.classes.robots | Octobercms
+ * @author     devnull <www.gerekper.asia>
+ * @copyright  2012-2019 Gerekper Inc
+ * @license    http://www.gerekper.asia/license/modules.txt
+ * @version    1.0.0
+ * @link       http://www.gerekper.asia/package/toolbox
+ * @see        http://www.github.com/gerekper/toolbox
+ * @since      File available since Release 1.0.0
+ * @deprecated -
+ */
 
 class Robots
 {

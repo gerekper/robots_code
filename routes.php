@@ -1,14 +1,14 @@
 <?php
 
 use Cms\Classes\Page;
-use Devnull\Main\Models\Settings;
-use Devnull\Main\Models\SettingsRobot;
-use Devnull\Main\Models\SettingsHuman;
-use Devnull\Main\Models\SettingsRobotLog;
 use Illuminate\Support\Facades\Redirect;
-use Devnull\Main\Models\Robot;
-use Devnull\Main\Models\Human;
-use Devnull\Main\Models\RobotLog;
+use Devnull\Robots\Models\Settings;
+use Devnull\Robots\Models\SettingsRobot;
+use Devnull\Robots\Models\SettingsHuman;
+use Devnull\Robots\Models\SettingsRobotLog;
+use Devnull\Robots\Models\Robot;
+use Devnull\Robots\Models\Human;
+use Devnull\Robots\Models\RobotLog;
 
 //----------------------------------------------------------------------//
 //	Gerkeper.main Route Functions - Start

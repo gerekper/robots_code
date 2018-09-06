@@ -1,5 +1,7 @@
-<?php namespace Devnull\Robots\Classes;
-use phpDocumentor\Reflection\Types\Self_;
+<?php namespace Devnull\Robots\Model;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**                _                             _
 __ _  ___ _ __ ___| | ___ __   ___ _ __ __ _ ___(_) __ _
@@ -22,11 +24,19 @@ __ _  ___ _ __ ___| | ___ __   ___ _ __ __ _ ___(_) __ _
  * @deprecated -
  */
 
-class SystemSettings
+class Settings extends Model
 {
     //----------------------------------------------------------------------//
     //	Constant Functions - Start
     //----------------------------------------------------------------------//
+
+    public $implement               =   ['System.Behaviors.SettingsModel'];
+    public $settingsCode            =   'devnull_main_settings';
+    public $settingsFields          =   'fields.yaml';
+
+    public static $_table           =   'system_settings';
+    public static $_system_plugin   =   'system_plugin_versions';
+    public static $_code_robots     =   'Devnull.Robots';
 
     //----------------------------------------------------------------------//
     //	Constant Functions - End
@@ -36,7 +46,7 @@ class SystemSettings
     //	Construct Functions - Start
     //----------------------------------------------------------------------//
 
-    function __construct(){}
+    function __construct(){parent::__construct();}
 
     //----------------------------------------------------------------------//
     //	Construct Functions - End
@@ -46,46 +56,29 @@ class SystemSettings
     //	Main Functions - Start
     //----------------------------------------------------------------------//
 
-    public static function get_config_robot()
-    {
-        $_get_config_robot = "{\"use_plugin_robot\":\"1\",\"redirectpage\":\"404\",\"use_robots\":\"1\",\"use_robottrap\":\"1\",\"use_forward_robot\":\"1\",\"use_invert_on_buttons\":\"1\"}";
-        return array(['item' => SystemSettings::get_robot_code(), 'value' => $_get_config_robot]);
-    }
-
-    public static function get_config_robot_log()
-    {
-        $_get_config_robot_log = "{\"use_plugin_robot_log\":\"1\",\"use_plugin_human_log\":\"1\"}";
-        return array(['item' => SystemSettings::get_robot_log_code(), 'value' => $_get_config_robot_log]);
-
-    }
-
-    public static function get_config_human()
-    {
-        $_get_config_human = "{\"use_plugin_human\":\"1\",\"redirectpage\":\"404\"}";
-        return array(['item' => SystemSettings::get_robot_human_code(), 'value' => $_get_config_human]);
-    }
-
-    //TODO
-    //public static function get_config_human_log()
-    //{
-    //  $_get_config_human_log = "{\"use_plugin_human_log\":\"1\",\"redirectpage\":\"404\"}";
-    //  return array(['item' => SystemSettings::get_human_code_log(), 'value' => $_get_config_human_log]);
-    //}
-
-
     //----------------------------------------------------------------------//
     //	Main Functions - End
     //----------------------------------------------------------------------//
 
     //----------------------------------------------------------------------//
-    //	Code Functions - Start
+    //	Overridden Functions - Start
     //----------------------------------------------------------------------//
 
-    public static function get_robot_code(){ return 'devnull_robots_robot';}
-    public static function get_robot_log_code(){ return 'devnull_robots_log';}
-    public static function get_robot_human_code() { return 'devnull_main_human';}
+    public function afterUpdate()
+    {
+        ((Settings::get('use_plugin') == FALSE)? $this->update_plugin_versions(TRUE) : $this->update_plugin_versions(FALSE));
+    }
 
     //----------------------------------------------------------------------//
-    //	Code Functions - End
+    //	Shared Functions - Start
+    //----------------------------------------------------------------------//
+
+    private function update_plugin_versions($_value)
+    {
+        DB::table(Settings::$_system_plugin)->where('code', Settings::$_code_robots)->update(['is_disabled' => $_value]);
+    }
+
+    //----------------------------------------------------------------------//
+    //	Settings Functions - End
     //----------------------------------------------------------------------//
 }

@@ -1,0 +1,17 @@
+{
+  "name": "devnull/robot",
+  "description": "Enable humans.txt and robots.txt in OctoberCMS",
+  "homepage": "http://www.gerekper.asia",
+  "keywords": ["octobercms", "humans", "robots", "gerekper", "asia"],
+  "authors": [
+    {
+      "name": "devnull / Richard Irwan Shah",
+      "email": "richard.irwanshah@gmail.com"
+    }
+  ],
+  "require": {
+    "owl/hasmany": "~1.0@dev",
+    "react/promise": "^2.0@dev"
+
+  }
+}

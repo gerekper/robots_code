@@ -1,17 +1,6 @@
-<?php namespace Devnull\Robots\Updates;
+<?php namespace Devnull\Robots\Models;
 
-use DB;
-use Devnull\Main\Classes\InstallMain;
-use Devnull\Robots\Classes\Seeding;
-use Devnull\Robots\Models\Robot;
-use Devnull\Robots\Models\RobotDirective;
-use Devnull\Robots\Models\RobotAgent;
-use Devnull\Robots\Models\RobotLog;
-use Devnull\Robots\Models\Human;
-use Devnull\Robots\Models\HumanConfig;
-use Devnull\Robots\Models\HumanInfo;
-use Devnull\Robots\Models\HumanLog;
-use October\Rain\Database\Updates\Seeder;
+use Illuminate\Database\Eloquent\Model;
 
 /**                _                             _
 __ _  ___ _ __ ___| | ___ __   ___ _ __ __ _ ___(_) __ _
@@ -20,10 +9,10 @@ __ _  ___ _ __ ___| | ___ __   ___ _ __ __ _ ___(_) __ _
 \__, |\___|_|  \___|_|\_\ .__/ \___|_|(_)__,_|___/_|\__,_|
 |___/                   |_|
 
- * This is a gerekper.main[robots] for OctoberCMS
+ * This is a gerekper.robots[robot_log] for OctoberCMS
  *
  * @category   Gerekper+ Addons | Toolbox Plugin File
- * @package    Devnull.robots.updates.seedalltable | Octobercms
+ * @package    Devnull.robots.robot_log | Octobercms
  * @author     devnull <www.gerekper.asia>
  * @copyright  2012-2019 Gerekper Inc
  * @license    http://www.gerekper.asia/license/modules.txt
@@ -34,49 +23,65 @@ __ _  ___ _ __ ___| | ___ __   ___ _ __ __ _ ___(_) __ _
  * @deprecated -
  */
 
-class SeedAllTable extends Seeder
+class RobotLog extends Model
 {
     //----------------------------------------------------------------------//
     //	Constant Functions - Start
     //----------------------------------------------------------------------//
 
-    function __construct()
-    {
-        $this->_schema              =   [];
-        $this->installations        =   new InstallMain();
-        $this->seeding              =   new Seeding();
-        $this->_main_code           =   'devnull_robot_settings';
+    public $table           =   'gp_robots_robot_log';
+    public static $_table   =   'gp_robots_robot_log';
 
-        $this->_robots_robot        =   Robot::$_table;
-        $this->_robots_directive    =   RobotDirective::$_table;
-        $this->_robots_agent        =   RobotAgent::$_table;
-        $this->_robots_log          =   RobotLog::$_table;
+    protected $primaryKey   =   'id';
+    public $timestamps      =   true;
+    public $exists          =   true;
+    protected $dates        =   [];
+    protected $jsonable     =   [];
+    protected $visible      =   [];
+    protected $hidden       =   [];
+    protected $guarded      =   [];
 
-        $this->_robot_human         =   Human::$_table;
-        $this->_robot_human_config  =   HumanConfig::$_table;
-        $this->_robot_human_info    =   HumanInfo::$_table;
-        $this->_robot_human_log     =   HumanLog::$_table;
-
-
-    }
+    public $fillable        =   [];
+    public $belongsTo       =   [];
 
     //----------------------------------------------------------------------//
-    //	Constant Functions - End
+    //	Validation Functions - Start
     //----------------------------------------------------------------------//
 
-    //----------------------------------------------------------------------//
-    //	Construct Functions - Start
-    //----------------------------------------------------------------------//
+    use \October\Rain\Database\Traits\Validation;
+    public $rules           =   [];
+
+    public $customMessages  =   [
+        'between'   =>  'devnull.robots::model.customMessages.between',
+        'required'  =>  'devnull.robots::lang.customMessages.required',
+        'boolean'   =>  'devnull.robots::lang.customMessages.boolean',
+        'url'       =>  'devnull.robots::lang.customMessages.url',
+    ];
+
 
     //----------------------------------------------------------------------//
-    //	Construct Functions - End
+    //	__construct Functions - Start
     //----------------------------------------------------------------------//
+
+    function _construct(){ parent::__construct();}
 
     //----------------------------------------------------------------------//
     //	Main Functions - Start
     //----------------------------------------------------------------------//
 
     //----------------------------------------------------------------------//
-    //	Main Functions - End
+    //	Overridden Functions - Start
+    //----------------------------------------------------------------------//
+
+    //----------------------------------------------------------------------//
+    //	Shared Functions - Start
+    //----------------------------------------------------------------------//
+
+    //----------------------------------------------------------------------//
+    //	onAjax Functions - Start
+    //----------------------------------------------------------------------//
+
+    //----------------------------------------------------------------------//
+    //	Robot Functions - Ends
     //----------------------------------------------------------------------//
 }

@@ -1,4 +1,5 @@
 <?php namespace Devnull\Robots\Classes;
+use phpDocumentor\Reflection\Types\Self_;
 
 /**                _                             _
 __ _  ___ _ __ ___| | ___ __   ___ _ __ __ _ ___(_) __ _
@@ -45,9 +46,24 @@ class SystemSettings
     //	Main Functions - Start
     //----------------------------------------------------------------------//
 
-    public static function get_config_robot(){}
-    public static function get_config_robot_log(){}
-    public static function get_config_human(){}
+    public static function get_config_robot()
+    {
+        $_get_config_robot = "{\"use_plugin_robot\":\"1\",\"redirectpage\":\"404\",\"use_robots\":\"1\",\"use_robottrap\":\"1\",\"use_forward_robot\":\"1\",\"use_invert_on_buttons\":\"1\"}";
+        return array(['item' => self::get_robot_code(), 'value' => $_get_config_robot]);
+    }
+
+    public static function get_config_robot_log()
+    {
+        $_get_config_robot_log = "{\"use_plugin_robot_log\":\"1\",\"use_plugin_human_log\":\"1\"}";
+        return array(['item' => SystemSettings::get_robot_log_code(), 'value' => $_get_config_robot_log]);
+
+    }
+
+    public static function get_config_human()
+    {
+        $_get_config_human = "{\"use_plugin_human\":\"1\",\"redirectpage\":\"404\"}";
+        return array(['item' => SystemSettings::get_human_code(), 'value' => $_get_config_human]);
+    }
 
     public static function get_robot_code(){ return 'devnull_robots_robot';}
     public static function get_robot_log_code(){ return 'devnull_robots_log';}

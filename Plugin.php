@@ -61,11 +61,6 @@ class Plugin Extends PluginBase
 		$alias->alias('Humans', 'Devnull\Robots\Facades\Humans');
 		$alias->alias('SystemSettings', 'Devnull\Robots\Facades\SystemSettings');
 
-		App::singleton('robots.seeding', function() { return \Devnull\Robots\Classes\Seeding::instance();});
-		App::singleton('robots.robots', function () {return \Devnull\Robots\Classes\Robots::instance();});
-		App::singleton('robots.humans', function () {return \Devnull\Robots\Classes\Humans::instance();});
-		App::singelton('robots.systemsettings', function () {return \Devnull\Robots\Classes\SystemSettings::instance();});
-        App::singleton('main.installmain', function() {return \Devnull\Main\Classes\InstallMain::instance();});
 	}
 
 	public function registerNavigation(){}

@@ -1,4 +1,4 @@
-<?php namespace Devnull\Robots\Model;
+<?php namespace Devnull\Robots\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;

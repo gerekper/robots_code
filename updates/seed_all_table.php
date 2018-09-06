@@ -36,7 +36,7 @@ __ _  ___ _ __ ___| | ___ __   ___ _ __ __ _ ___(_) __ _
  * @deprecated -
  */
 
-class SeedAllTable extends Seeder
+class SeedAllTables extends Seeder
 {
     //----------------------------------------------------------------------//
     //	Constant Functions - Start
@@ -112,14 +112,14 @@ class SeedAllTable extends Seeder
             switch($_all_tables)
             {
                 case $this->_robots_robot:
-                    SeedAllTable::init_schema_robot();
+                    SeedAllTables::init_schema_robot();
                     break;
                 default:
                     break;
             }
             $this->installations->optimize_settings();
         }
-        SeedAllTable::setSettings($this->_all_codes);
+        SeedAllTables::setSettings($this->_all_codes);
     }
 
     //----------------------------------------------------------------------//
@@ -139,8 +139,13 @@ class SeedAllTable extends Seeder
                 'status'    =>  $_schema['status'],
             ]);
         }
+        SeedAllTables::init_reset_optimize(Robot::$_table);
+    }
+
+    private function init_reset_optimize($_value)
+    {
         $this->installations->schema_default();
-        $this->installations->optimize_table(Robot::$_table);
+        $this->installations->optimize_table($_value);
     }
 
     //----------------------------------------------------------------------//
@@ -155,14 +160,14 @@ class SeedAllTable extends Seeder
     {
         foreach ($_value as $_key => $_code)
         {
-            switch (SeedAllTable::checkSettings($_key))
+            switch (SeedAllTables::checkSettings($_key))
             {
                 case TRUE:
-                    SeedAllTable::del_db_variables($_key);
-                    SeedAllTable::init_db_variables($_code);
+                    SeedAllTables::del_db_variables($_key);
+                    SeedAllTables::init_db_variables($_code);
                     break;
                 case FALSE:
-                    SeedAllTable::init_db_variables($_code);
+                    SeedAllTables::init_db_variables($_code);
                     break;
                 default:
                     break;
